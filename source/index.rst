@@ -11,7 +11,8 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
-   helloworld
+   第1章
+   helloworld
    en/quickstart
 
 
