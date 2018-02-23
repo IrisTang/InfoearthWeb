@@ -72,3 +72,236 @@
 ===========
 服务注册只针对WebApi服务
 
+-----------
+4.4.1 服务注册配置
+-----------
+
+.. image:: image/4-9.png
+
+-----------
+4.4.2 服务注册
+-----------
+
+.. image:: image/4-10.png
+
+.. image:: image/4-11.png
+
+-----------
+4.4.3 服务日志
+-----------
+
+.. image:: image/4-12.png
+
+- 服务日志启用
+业务系统中默认启动服务日志。只需要在WebApiController的类或方法上加上[WebApiTracker]特性，WebApi接口就启用服务日志记录了。
+
+.. image:: image/4-13.png
+
+- 服务日志禁用
+只需要在WebApiController的类或方法上加上[WebApiNoTracker]特性，WebApi接口就禁用服务日志记录了。
+
+.. image:: image/4-14.png
+
+-----------
+4.4.4 服务监控
+-----------
+
+.. image:: image/4-15.png
+
+===========
+4.5 消息通知
+===========
+消息通知是基于SignalR的实时通知
+
+-----------
+4.5.1 消息通知服务端
+-----------
+消息通知服务端是一个控制台程序，有如下内容：
+
+.. image:: image/4-16.png
+
+- 服务端配置
+
+.. image:: image/4-17.png
+
+修改上述红色箭头所指的相关配置
+
+-----------
+4.5.2 消息通知WebApi接口
+-----------
+详细查看业务系统中的系统管理----系统组件库----SignalR使用
+
+-----------
+4.5.3 消息通知查看
+-----------
+业务系统提供了每个用户各自消息查看功能,进入业务系统首页上会有消息通知
+
+.. image:: image/4-18.png
+
+点击查看更多，查看自己所有消息
+
+.. image:: image/4-19.png
+
+===========
+4.6 任务调度
+===========
+框架提供Quartz和HangFire两种任务任务调度功能
+
+-----------
+4.6.1 Quartz.net和HangFire比较
+-----------
+Quartz.net：
+
+- 支持秒级单位的定时任务处理，但是Hangfire只能支持分钟及以上的定时任务处理
+-	更加复杂的触发器，日历以及任务调度处理
+-	可配置的定时任务
+
+Hangfire：
+
+-	持久化保存任务、队列、统计信息
+-	重试机制
+-	多语言支持
+-	支持任务取消
+-	支持按指定Job Queue处理任务
+-	服务器端工作线程可控，即job执行并发数控制
+-	分布式部署，支持高可用
+-	良好的扩展性，如支持IOC、Hangfire Dashboard授权控制、Asp.net Core、持久化存储等
+
+**如果在定时任务处理方面没有很高的要求，比如一定要5s定时执行，Hangfire值得拥有。**
+
+-----------
+4.6.2 Quartz.net
+-----------
+
+- 自定义任务
+
+.. image:: image/4-20.png
+
+- 添加任务
+点击任务管理----任务调度QZ菜单，进入QZ任务调度界面
+
+.. image:: image/4-21.png
+
+点击任务管理----任务调度QZ菜单，进入QZ任务调度界面
+
+.. image:: image/4-22.png
+
+- 启动、停止任务
+
+.. image:: image/4-23.png
+
+- Cron表达式
+
+.. image:: image/4-24.png
+
+-----------
+4.6.3 HangFire
+-----------
+
+.. image:: image/4-25.png
+
+- 自定义任务
+
+.. image:: image/4-26.png
+
+上述添加任务的方式是代码中硬编码，不便于更改，HangFire还支持Json格式配置，类似于Quartz配置
+
+.. image:: image/4-27.png
+
+配置文件
+
+.. image:: image/4-28.png
+
+- 任务启动
+HangFire是通过Owin的方式进行启动
+
+.. image:: image/4-29.png
+
+注意：UseRecurringJob方法也支持Json方式的加载
+
+.. image:: image/4-30.png
+
+- 任务查看
+
+.. image:: image/4-31.png
+
+.. image:: image/4-32.png
+
+.. image:: image/4-33.png
+
+- HangFire配置信息
+
+.. image:: image/4-34.png
+
+.. image:: image/4-35.png
+
+===========
+4.7 业务组件
+===========
+
+-----------
+4.7.1 地图
+-----------
+
+.. image:: image/4-36.png
+
+**html**
+
+.. image:: image/4-37.png
+
+**JS**
+
+.. image:: image/4-38.png
+
+**地图控件参数**
+
+.. image:: image/4-39.png
+
+**地图控件方法**
+
+  1)	addTagging(type, coordinates, popHtml, vectorArr)添加点线面
+    type：类型，固定值：MultiPolygon，Point
+    
+    coordinates：坐标集合:[[35,35],[35,36]…]
+    
+    popHtml：点击区域要弹出的内容
+    
+    vectorArr：拐点区域属性：{ name :” 拐点坐标标注”, color : 'rgba(252, 216, 107, 0.35)' }
+    
+  2)	appendTagging(type, coordinates, popHtml, vectorArr)追加点线面 
+     参数同上
+    
+  3)	addTaggingArr (type, GDZBArr)添加点线面
+    type:同上
+    
+    GDZBArr：多边形集合:[{ coordinates : [[35,35],[35,36]…]},{}…]
+    
+  4)	addMarker(markerArr) 添加标注  
+    markerArr格式：[{location:[12,13], url:””, popupHtml:””},{}…]
+    
+    其中：location为经纬度坐标，url为标注图片地址，popupHtml为点击标注要弹出的内容
+    
+  5)	appendMarker(markerArr) 追加标注
+    参数同上
+  6)	addLocation(locationArr)定位
+    locationArr格式：[{longitude: 117.5,latitude: 34.5},{}…]
+  7)	clearMap清理地图
+  8)	clearMapDraw清除地图框选
+  9)	drawShape (shapeType)自定义绘图
+    shapeType：值是固定几个值：circle：画圆，box：矩形，
+  10)	setHeight (mapHeight)设置地图高度
+  
+**地图一些注意点：**
+地图控件参数中有getMarkerData和markerDataId两个参数，这两个参数是用于点击地图标注定位业务数据的，markerDataId参数值要在popupHtml内容中有相应的标签Id
+
+.. image:: image/4-40.png
+
+引用的js和css
+
+.. image:: image/4-41.png
+
+**地图图层配置**
+XmlConfig文件夹下的GeoMap.xml文件是地图配置文件
+
+.. image:: image/4-42.png
+
