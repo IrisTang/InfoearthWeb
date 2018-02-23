@@ -9,11 +9,14 @@ InfoearthWeb - a
 Contents:
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    第1章
    第2章
    第3章
+   第4章
+     4.1章节
+   第5章
    helloworld
    
 
