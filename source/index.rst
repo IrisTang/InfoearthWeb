@@ -13,7 +13,7 @@ Contents:
 
    第1章
    helloworld
-   en/quickstart
+   
 
 
 Indices and tables
