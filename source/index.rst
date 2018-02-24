@@ -3,10 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-InfoearthWeb - a 
+InfoearthWeb - Web框架
 =====================================
 
-Contents:
+内容:
 
 .. toctree::
    :maxdepth: 2
@@ -15,7 +15,6 @@ Contents:
    第2章
    第3章
    第4章
-     4.1章节
    第5章
    helloworld
    
